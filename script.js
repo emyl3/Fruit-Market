@@ -126,7 +126,7 @@ $('.sell').on('click', function (event) {
 	switch (selectedFruit) {
 
 		case 'apple':
-			// calculates the total amount of money available after buying the apple
+			// calculates the total amount of money available after selling the apple
 			if (apple.amountBought === 0) {
 				alert('Buy something before you sell!')
 			} else {
@@ -137,7 +137,6 @@ $('.sell').on('click', function (event) {
 			break;
 
 		case 'orange':
-		// calculates the total amount of money available after buying the apple
 			if (orange.amountBought === 0) {
 				alert('Buy something before you sell!')
 			} else {
@@ -148,7 +147,6 @@ $('.sell').on('click', function (event) {
 			break;
 
 			case 'banana':
-				// calculates the total amount of money available after buying the apple
 				if (banana.amountBought === 0) {
 					alert('Buy something before you sell!')
 				} else {
@@ -159,7 +157,6 @@ $('.sell').on('click', function (event) {
 				break;
 
 			case 'grape':
-			// calculates the total amount of money available after buying the apple
 				if (grape.amountBought === 0) {
 					alert('Buy something before you sell!')
 				} else {
@@ -168,10 +165,9 @@ $('.sell').on('click', function (event) {
 						$('#totalCash').text(total.toFixed(2));
 					}
 				break;
-
 			}
-
-})
+		})
+		
 //calls the intervalFifteen function every 15 seconds
 function resetValues() {
 	window.setTimeout(intervalFifteen, 15000);

@@ -11,6 +11,7 @@ function Fruit(fruit) {
 	this.fruit = fruit;
 	this.marketPrice = 2.00;
 	this.averagePurPrice = 0;
+	this.amountBought = 0;
 	this.purchases = [];
 	this.total = 0;
 };
@@ -21,16 +22,16 @@ Fruit.prototype.purchaseTotal = function () {
 	for (var i = 0; i < this.purchases.length; i++){
 		totalAmt += this.purchases[i];
 	}
-	this.total = totalAmt.toFixed(2);
+	this.total = totalAmt;
 }
 
 // takes from the total purchases to calculate the average purchase price
 Fruit.prototype.averagePurchase = function() {
 	this.purchaseTotal();
 	console.log('this total from averagePurchase:', this.total);
-	this.averagePurPrice = (this.total / this.purchases.length).toFixed(2);
+	this.averagePurPrice = (this.total / this.purchases.length);
 	console.log(this.averagePurPrice);
-	$('.app' + this.fruit).text(this.averagePurPrice);
+	$('.app' + this.fruit).text(this.averagePurPrice.toFixed(2));
 }
 
 // generates a random market price
@@ -49,9 +50,9 @@ Fruit.prototype.calcMarketPrice = function(){
 		this.marketPrice = 9.99;
 	}
 	//this adds randomly generated market price to the DOM
-	var thisMarketPrice = (this.marketPrice).toFixed(2);
+	var thisMarketPrice = (this.marketPrice);
 	var thisFruit = this.fruit;
-	$('.price' + this.fruit).text(thisMarketPrice);
+	$('.price' + this.fruit).text(thisMarketPrice.toFixed(2));
 }
 
 
@@ -64,10 +65,10 @@ function totalSpent(array, newPurchase) {
 		}
 		else {
 			// the new purchase is calculated to the total and displayed on the DOM
-			total = calcTotal.toFixed(2);
+			total = calcTotal;
 			console.log(total);
 			moneyCheck = true;
-			$('#totalCash').text(total);
+			$('#totalCash').text(total.toFixed(2));
 		}
 }
 
@@ -85,6 +86,7 @@ $('.buy').on('click', function (event) {
 				apple.purchases.push(apple.marketPrice);
 				//calculates the average purchase price of the apple
 				apple.averagePurchase();
+				apple.amountBought ++;
 			}
 			break;
 
@@ -93,6 +95,7 @@ $('.buy').on('click', function (event) {
 			if (moneyCheck === true){
 				orange.purchases.push(orange.marketPrice);
 				orange.averagePurchase();
+				orange.amountBought++;
 			}
 				break;
 
@@ -101,6 +104,7 @@ $('.buy').on('click', function (event) {
 			if (moneyCheck === true){
 				banana.purchases.push(banana.marketPrice);
 				banana.averagePurchase();
+				banana.amountBought++;
 			}
 			break;
 
@@ -109,12 +113,65 @@ $('.buy').on('click', function (event) {
 			if (moneyCheck === true){
 				grape.purchases.push(grape.marketPrice);
 				grape.averagePurchase();
+				grape.amountBought++;
 			}
 			break;
 	}
 })
 
+// sell fruit
+$('.sell').on('click', function (event) {
+	var selectedFruit = $(event.target).attr('class').split(' ')[1];
+	selectedFruit = selectedFruit.toLowerCase();
+	switch (selectedFruit) {
 
+		case 'apple':
+			// calculates the total amount of money available after buying the apple
+			if (apple.amountBought === 0) {
+				alert('Buy something before you sell!')
+			} else {
+					apple.amountBought--;
+					total += apple.marketPrice;
+					$('#totalCash').text(total.toFixed(2));
+				}
+			break;
+
+		case 'orange':
+		// calculates the total amount of money available after buying the apple
+			if (orange.amountBought === 0) {
+				alert('Buy something before you sell!')
+			} else {
+					orange.amountBought--;
+					total += orange.marketPrice;
+					$('#totalCash').text(total.toFixed(2));
+				}
+			break;
+
+			case 'banana':
+				// calculates the total amount of money available after buying the apple
+				if (banana.amountBought === 0) {
+					alert('Buy something before you sell!')
+				} else {
+						banana.amountBought--;
+						total += banana.marketPrice;
+						$('#totalCash').text(total.toFixed(2));
+					}
+				break;
+
+			case 'grape':
+			// calculates the total amount of money available after buying the apple
+				if (grape.amountBought === 0) {
+					alert('Buy something before you sell!')
+				} else {
+						grape.amountBought--;
+						total += grape.marketPrice;
+						$('#totalCash').text(total.toFixed(2));
+					}
+				break;
+
+			}
+
+})
 //calls the intervalFifteen function every 15 seconds
 function resetValues() {
 	window.setTimeout(intervalFifteen, 15000);
